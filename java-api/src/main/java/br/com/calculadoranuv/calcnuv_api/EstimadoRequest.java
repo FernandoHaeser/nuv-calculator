@@ -9,12 +9,12 @@ public class EstimadoRequest {
 
     /**
      * Construtor padrão (vazio).
-     * ESSENCIAL para que o Spring Boot (via Jackson) consiga criar o objeto a partir do JSON.
+     * ESSENCIAL para que o framework consiga criar o objeto a partir do JSON.
      */
     public EstimadoRequest() {
     }
 
-    // Getters e Setters (os seus já estavam corretos)
+    // Getters e Setters
     public List<Long> getLicencas() {
         return licencas;
     }
@@ -32,8 +32,7 @@ public class EstimadoRequest {
     }
 
     /**
-     * Método toString (opcional, mas muito útil para depuração).
-     * Permite que System.out.println(request) mostre os dados de forma legível.
+     * Método toString (útil para o nosso debug no passo 3).
      */
     @Override
     public String toString() {

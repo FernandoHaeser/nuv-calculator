@@ -1,0 +1,4 @@
+br\com\calculadoranuv\calcnuv_api\RestExceptionHandler.class
+br\com\calculadoranuv\calcnuv_api\CalculadoraController$CombinacaoResultado.class
+br\com\calculadoranuv\calcnuv_api\ItemCombinacao.class
+br\com\calculadoranuv\calcnuv_api\CalculoService.class
