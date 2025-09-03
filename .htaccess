@@ -1,23 +1,32 @@
-# Ativa o motor de reescrita de URL
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# ----------------------------------------------------------------------
-# REGRA 1: Redireciona o caminho antigo para o novo (Opcional, mas bom para SEO)
-# Se alguém acessar o caminho completo, será redirecionado para a URL limpa
-RewriteRule ^html/login\.html$ /login [R=301,L]
-# ----------------------------------------------------------------------
+    # -------------------------
+    # Esconde index.php
+    # -------------------------
+    RewriteCond %{THE_REQUEST} /index\.php [NC]
+    RewriteRule ^index\.php$ / [R=301,L]
 
-# ----------------------------------------------------------------------
-# REGRA 2: Remove a extensão .html das URLs
-# Se o navegador pedir /login, o servidor vai procurar por /login.html
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^/]+)/?$ $1.html [L]
-# ----------------------------------------------------------------------
+    # -------------------------
+    # Rotas amigáveis
+    # -------------------------
+    RewriteRule ^login/?$          /html/login.html [L]
+    RewriteRule ^menuNuv/?$        /html/menuNuv.php [L]
+    RewriteRule ^decodificador/?$  /html/decodificador.php [L]
+    RewriteRule ^relatorio/?$      /html/relatorioCanais.php [L]
+    RewriteRule ^manutencao/?$     /html/manutencao.html [L]
+    RewriteRule ^calcestimado/?$   /html/calcestimado.php [L]
+    RewriteRule ^calcomb/?$        /html/calcomb.php [L]
+    RewriteRule ^doc/?$             /html/doc.php [L]
 
-# ----------------------------------------------------------------------
-# REGRA 3: Mapeia a URL limpa para o arquivo na pasta /html
-# Se o navegador pedir /login, o servidor vai entregar o arquivo /html/login.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^login/?$ /html/login.html [L]
-# ----------------------------------------------------------------------
+    # -------------------------
+    # Bloqueia acesso direto à /html/, exceto arquivos mapeados
+    # -------------------------
+    RewriteCond %{REQUEST_URI} !^/html/(login\.html|menuNuv\.php|decodificador\.php|relatorioCanais\.php|manutencao\.html|calcestimado\.php|calcomb\.php|doc\.php)$
+    RewriteRule ^html/ - [F,L]
+
+    # -------------------------
+    # Esconde index.php como página inicial
+    # -------------------------
+    DirectoryIndex index.php
+</IfModule>

@@ -6,14 +6,12 @@ session_start();
 
 // 'Gatekeeper': Se a variável de sessão 'user_id' não existir, o usuário não está logado.
 if (!isset($_SESSION['user_id'])) {
-    // Redireciona o navegador para a página de login.
-    header('Location: /html/login.html');
-    // Interrompe a execução do script para garantir que o HTML abaixo não seja renderizado.
+    header('Location: /login');  // URL amigável definida no .htaccess
     exit;
 }
 
 // Obtém o nome do usuário da sessão, se estiver disponível.
-$username = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Usuário';
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Usuário';
 
 ?>
 
@@ -47,23 +45,24 @@ $username = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_nam
         <p class="subtitle">Selecione uma das opções abaixo para continuar.</p>
 
         <div class="menu-opcoes">
-            <a href="/html/menuNuv.php" class="menu-item">
+            <a href="/menuNuv" class="menu-item">
                 <i class="fas fa-chart-line"></i>
                 <span>NUV Calculator</span>
             </a>
-            <a href="/html/decodificador.php" class="menu-item">
+            <a href="/decodificador" class="menu-item">
                 <i class="fas fa-users-cog"></i>
                 <span>Decodificador de Modelos de TV</span>
             </a>
-            <a href="/html/manutencao.html" class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span>Integração Analyser</span>
-            </a>
-            <a href="/html/relatorioCanais.php" class="menu-item">
+            <a href="/relatorio" class="menu-item">
                 <i class="fas fa-cog"></i>
                 <span>LogAnalyzer</span>
             </a>
+            <a href="/manutencao" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Integração Analyser</span>
+            </a>
         </div>
+
     </div>
     <footer>
         <p>© Suporte Avançado/CGR - CDNTV - 2025 </p>
@@ -105,7 +104,8 @@ $username = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_nam
 
             // --- LÓGICA DA TRANSIÇÃO DE PÁGINA ---
             document.body.classList.add('fade-in');
-            const links = document.querySelectorAll('a:not([href^="#"]):not([target="_blank"]):not(.logout-btn)');
+            const links = document.querySelectorAll(
+                'a:not([href^="#"]):not([target="_blank"]):not(.logout-btn)');
             links.forEach(link => {
                 link.addEventListener('click', e => {
                     const destination = link.href;
