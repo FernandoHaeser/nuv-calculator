@@ -1,0 +1,6 @@
+paramiko
+requests
+pandas
+rich
+tqdm
+Flask
