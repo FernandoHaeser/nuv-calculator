@@ -184,25 +184,45 @@ document.getElementById('comb-form').onsubmit = async (e) => {
     resultadoDiv.style.display = 'block';
 
     try {
-        const response = await fetch("/api/combinacoes", {
+        // Passo 1: inicia cálculo
+        const startResp = await fetch("/api/combinacoes", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
-        if (!response.ok) throw new Error("Erro na comunicação com a API.");
+        if (!startResp.ok) throw new Error("Erro ao iniciar cálculo.");
 
-        const resultado = await response.json();
+        const { jobId } = await startResp.json();
+        if (!jobId) throw new Error("JobId inválido retornado.");
+
+        // Passo 2: consulta até terminar
+        let resultado;
+        for (let tentativas = 0; tentativas < 20; tentativas++) {
+            const statusResp = await fetch(`/api/combinacoes/resultado/${jobId}`);
+            if (!statusResp.ok) throw new Error("Erro ao consultar resultado.");
+
+            const statusJson = await statusResp.json();
+            if (statusJson.status === "PROCESSANDO") {
+                await new Promise(r => setTimeout(r, 1000)); // espera 1s
+                continue;
+            }
+
+            resultado = statusJson;
+            break;
+        }
+
         if (!resultado || !resultado.length) {
             resultadoDiv.innerHTML = `<p class="error-message">Nenhuma combinação encontrada.</p>`;
             showToast("Nenhuma combinação encontrada!");
             return;
         }
 
-        const melhor = resultado[0]; // Melhor combinação
-        const totalStorageMb = normalizeNumber(data.tb) * 1024 * 1024; // total disponível em MB
-        const usedMb = normalizeNumber(melhor.mb); // total usado pela combinação
+        // Passo 3: monta tela com o melhor resultado
+        const melhor = resultado[0]; 
+        const totalStorageMb = normalizeNumber(data.tb) * 1024 * 1024;
+        const usedMb = normalizeNumber(melhor.mb);
         const usoPercent = clamp((usedMb / totalStorageMb) * 100, 0, 100).toFixed(1);
-        const usedTb = (usedMb / 1024 / 1024).toFixed(2); // convertido para TB
+        const usedTb = (usedMb / 1024 / 1024).toFixed(2);
 
         const combinacaoStr = melhor.quant
             .map((q, j) => q > 0 ? `<span class="license-tag">${q} assinaturas de ${data.itens[j].dias} dias</span>` : "")

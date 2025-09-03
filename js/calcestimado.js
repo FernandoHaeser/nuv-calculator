@@ -148,7 +148,10 @@ function getEstimadoData() {
 document.getElementById('estimado-form').onsubmit = async (e) => {
   e.preventDefault();
   const { data, error } = getEstimadoData();
-  if (error) { showToast(error); return; }
+  if (error) { 
+    showToast(error); 
+    return; 
+  }
 
   const resultadoDiv = document.getElementById('resultadoEstimado');
   resultadoDiv.innerHTML = `
@@ -168,8 +171,17 @@ document.getElementById('estimado-form').onsubmit = async (e) => {
     if (!response.ok) throw new Error('Erro na API');
 
     const resultadoJson = await response.json();
-    const bruto = resultadoJson.resultado ?? resultadoJson.total ?? 0;
-    const valor = normalizeNumber(bruto);
+
+    // --- Ajuste para tratar tanto array quanto objeto ---
+    let bruto = 0;
+    if (Array.isArray(resultadoJson) && resultadoJson.length > 0) {
+      bruto = resultadoJson[0].resultadoMb ?? 0;
+    } else {
+      bruto = resultadoJson.resultado ?? resultadoJson.total ?? resultadoJson.resultadoMb ?? 0;
+    }
+
+    // Convertendo MB -> TB
+    const valor = normalizeNumber(bruto) / (1024 * 1024);
 
     resultadoDiv.innerHTML = `
       <div class="result-item">
@@ -180,7 +192,7 @@ document.getElementById('estimado-form').onsubmit = async (e) => {
           <span class="license-tag">Espaço necessário: ${fmt2(valor)} TB</span>
         </div>
         <div class="result-footer">
-          <span class="usage-percent">⚠️Este valor é uma estimativa do armazenamento total necessário⚠️</span>
+          <span class="usage-percent">⚠️ Este valor é uma estimativa do armazenamento total necessário ⚠️</span>
         </div>
       </div>
     `;
@@ -191,3 +203,4 @@ document.getElementById('estimado-form').onsubmit = async (e) => {
     showToast('Erro ao processar!');
   }
 };
+
