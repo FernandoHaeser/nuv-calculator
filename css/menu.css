@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/**
+ * Folha de estilo para a página do menu principal (index.php).
+ * Define a aparência do container, título, botões de navegação e o novo header de usuário.
+ * @author CGR & Gemini
+ */
+
+/* --- ESTILOS DE BASE --- */
+
+body {
+  background: radial-gradient(circle at 60% 40%, #ff7e2d 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  background-attachment: fixed;
+}
+
+/* O contêiner principal que envolve o menu. */
+.container {
+  background: rgba(30, 30, 30, 0.96);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(60, 40, 20, 0.25), 0 0 0 2px #ff7e2d44;
+  padding: 48px 38px 32px 38px;
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  
+  /* CÓDIGO ADICIONADO: Empurra o container para baixo do header fixo. */
+  margin-top: 100px;
+}
+
+/* Estilo para o contêiner do logotipo da CDNTV. */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Título principal "NUV - Calculator". */
+h1 {
+  text-align: center;
+  color: #ffae5e;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  text-shadow: 0 2px 16px #ff7e2d55;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Contêiner para os botões de navegação. */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  align-items: center;
+}
+
+/* Estilo padrão para os botões do menu principal. */
+.menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(90deg, #232323 60%, #393939 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.18rem;
+  border-radius: 22px;
+  padding: 22px 32px;
+  text-decoration: none;
+  box-shadow: 0 4px 24px #29242133, 0 1.5px 8px #0002;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Estilo para o ícone (emoji) dentro de um botão do menu. */
+.menu-btn .icon {
+  font-size: 2.3rem;
+  filter: drop-shadow(0 2px 8px #ffae5e88);
+  transition: transform 0.2s;
+}
+
+.menu-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 22px;
+  background: linear-gradient(90deg, #ffae5e33 0%, #ff7e2d22 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.menu-btn:hover,
+.menu-btn:focus {
+  background: linear-gradient(90deg, #ff7e2d 60%, #ff7e2d 100%);
+  transform: scale(1.045);
+  box-shadow: 0 8px 32px #ff7e2d44, 0 2px 12px #ffae5e44;
+}
+
+.menu-btn:hover .icon,
+.menu-btn:focus .icon {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+.menu-btn:hover::after,
+.menu-btn:focus::after {
+  opacity: 1;
+}
+
+
+/* --- CÓDIGO ADICIONADO: Estilo para o Novo Menu de Usuário (Header) --- */
+
+.user-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 10px 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffae5e;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.user-display:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-display .arrow-down {
+  font-size: 0.7em;
+  transition: transform 0.3s;
+}
+
+.user-menu.open .user-display .arrow-down {
+  transform: rotate(180deg);
+}
+
+.logout-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.logout-dropdown.show {
+  max-height: 100px;
+  opacity: 1;
+}
+
+.logout-dropdown a {
+  display: block;
+  padding: 12px 20px;
+  color: #ff8a8a;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.logout-dropdown a:hover {
+  background-color: #c94040;
+  color: #fff;
+}
+
+
+/* --- AJUSTES PARA TELAS MENORES (Responsividade) --- */
+
+@media (max-width: 500px) {
+  .container {
+    padding: 14px 4px;
+    max-width: 98vw;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .menu-btn {
+    font-size: 1rem;
+    padding: 16px 12px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+
+  .menu-btn .icon {
+    font-size: 1.5rem;
+  }
+  
+  .user-header {
+    padding: 10px 20px;
+  }
+}

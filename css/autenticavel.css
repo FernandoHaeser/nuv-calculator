@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/**
+ * Folha de estilo completa para as páginas de autenticação (Login e Cadastro).
+ * Inclui base, formulários, responsividade e transições de página.
+ * Cores ajustadas para um tema neutro.
+ */
+
+/* --- ESTILOS DE BASE --- */
+
+body {
+  background: radial-gradient(circle at 60% 40%, #5e72e4 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  background-attachment: fixed;
+
+  /* CÓDIGO ADICIONADO: Prepara o corpo da página para a transição de fade */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* CÓDIGO ADICIONADO: Classe que torna a página visível, ativada via JS */
+body.fade-in {
+  opacity: 1;
+}
+
+.container {
+  background: rgba(30, 30, 30, 0.96);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 2px #5e72e444;
+  padding: 48px 38px 32px 38px;
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+h1 {
+  text-align: center;
+  color: #aee2ff;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  text-shadow: 0 2px 16px #5e72e455;
+}
+
+/* --- ESTILOS PARA O FORMULÁRIO --- */
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid #393939;
+  background-color: #232323;
+  color: #fff;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input::placeholder {
+  color: #8a8a8a;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #5e72e4;
+  box-shadow: 0 0 12px #5e72e455;
+}
+
+/* CÓDIGO ADICIONADO: Estilo para a dica de primeiro acesso no login */
+.login-hint {
+  color: #b0b0b0;
+  font-size: 0.85em;
+  text-align: center;
+  padding: 0 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+.login-hint.visible {
+  max-height: 50px;
+  opacity: 1;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.action-btn {
+  background: linear-gradient(90deg, #5e72e4 60%, #aee2ff 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.18rem;
+  border-radius: 18px;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 24px #5e72e433;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+.action-btn:hover,
+.action-btn:focus {
+  background: linear-gradient(90deg, #aee2ff 60%, #5e72e4 100%);
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px #5e72e444;
+  outline: none;
+}
+
+.message-area {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  min-height: 24px;
+}
+
+.sub-link {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  color: #aee2ff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.sub-link:hover {
+  color: #ffffff;
+}
+
+/* --- AJUSTES PARA TELAS MENORES (Responsividade) --- */
+
+@media (max-width: 500px) {
+  .container {
+    padding: 24px 18px;
+    max-width: 95vw;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
+
+  .form-input {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .action-btn {
+    padding: 14px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+  }
+}

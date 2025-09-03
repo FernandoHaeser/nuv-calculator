@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/* --- Estilos Gerais e Fundo --- */
+body {
+    background: radial-gradient(circle at 60% 40%, #5e72e4 0%, #1a1a1a 100%);
+    min-height: 100vh;
+    margin: 0;
+    
+    /* Centraliza tudo na página usando Flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    
+    font-family: "Montserrat", sans-serif;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+/* --- Container Principal --- */
+.container {
+    background: rgba(30, 30, 30, 0.96);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 2px #5e72e444;
+    padding: 56px 46px 40px 46px;
+    max-width: 560px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+}
+
+/* --- Títulos e Subtítulos --- */
+h1 {
+    text-align: center;
+    color: #aee2ff;
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 16px #5e72e455;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #c0c0c0;
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 32px;
+    opacity: 0.9;
+}
+
+/* --- Menu de Opções --- */
+.menu-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.menu-item {
+    background: linear-gradient(90deg, #303030 80%, #404040 100%);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 600;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, #404040 80%, #505050 100%);
+}
+
+.menu-item i {
+    font-size: 1.5rem;
+    color: #aee2ff;
+    transition: color 0.2s;
+}
+
+.menu-item:hover i {
+    color: #5e72e4;
+}
+
+.menu-item span {
+    letter-spacing: 1px;
+}
+
+/* --- CÓDIGO ADICIONADO: Estilo para o Novo Menu de Usuário (Header) --- */
+
+.user-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  padding: 10px 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5e72e4;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.user-display:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-display .arrow-down {
+  font-size: 0.7em;
+  transition: transform 0.3s;
+}
+
+.user-menu.open .user-display .arrow-down {
+  transform: rotate(180deg);
+}
+
+.logout-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.logout-dropdown.show {
+  max-height: 100px;
+  opacity: 1;
+}
+
+.logout-dropdown a {
+  display: block;
+  padding: 12px 20px;
+  color: #ff8a8a;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.logout-dropdown a:hover {
+  background-color: #c94040;
+  color: #fff;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    color: #c0c0c0;
+    font-size: 0.8rem;
+    
+    /* Adiciona uma margem acima para separar da box principal */
+    margin-top: 10px; 
+}
+
+/* --- Estilos Responsivos --- */
+@media (max-width: 500px) {
+    .container {
+        padding: 24px 12px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .menu-item {
+        padding: 16px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}

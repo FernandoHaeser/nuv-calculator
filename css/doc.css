@@ -1,0 +1,135 @@
+/**
+ * @file doc.css
+ * @description Folha de estilo para a página "Guia de Uso" (doc.html).
+ * Este arquivo define um layout de duas colunas para desktop que se 
+ * transforma em uma única coluna em dispositivos móveis. Inclui 
+ * animações de entrada para as seções e efeitos de hover.
+ * @author CGR & Gemini
+ */
+
+/* ========================================================== */
+/* === BASE: Importa os estilos principais (fundo, fontes)  === */
+/* ========================================================== */
+@import url('estimado.css');
+
+/* ========================================================== */
+/* === ESTILOS ESPECÍFICOS PARA O LAYOUT DO GUIA DE USO     === */
+/* ========================================================== */
+
+/* 1. Expande o container principal para ocupar mais espaço na tela */
+.container.guia-container {
+    max-width: 1100px; /* Largura máxima para telas de desktop */
+    width: 95%;      /* Ocupa 95% da tela em telas menores */
+    padding: 48px;
+    margin-top: 100px; /* Adiciona um espaço no topo para não ficar atrás do header */
+    margin-bottom: 40px;
+}
+
+/* 2. Cria um container flex para organizar as seções em colunas */
+.guia-columns {
+    display: flex;
+    gap: 32px; /* Espaçamento horizontal entre as colunas */
+    align-items: flex-start; /* Alinha as colunas pelo topo */
+    width: 100%;
+}
+
+/* 3. Define o estilo de cada seção de conteúdo */
+.guia-section {
+    background: linear-gradient(90deg, #232323 80%, #393939 100%);
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px #00000044;
+    flex: 1; /* Faz com que cada coluna divida o espaço igualmente */
+    min-width: 300px; /* Largura mínima antes de quebrar a linha em telas menores */
+    border: 1px solid #ff7e2d22; /* Adiciona uma borda sutil com a cor do tema */
+
+    /* Animação inicial: Esconde a seção e a move um pouco para baixo */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transições suaves para a animação de entrada */
+}
+
+/* Estado quando a seção deve estar visível e animada (ativado via JavaScript) */
+.guia-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilo para os subtítulos de cada seção */
+.guia-section h2 {
+    color: #ffae5e;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #ff7e2d44; /* Linha sutil abaixo do título */
+    padding-bottom: 12px;
+}
+
+/* Estilo para parágrafos e itens de lista */
+.guia-section p,
+.guia-section li {
+    color: #e0e0e0;
+    line-height: 1.7; /* Aumenta o espaçamento entre as linhas para melhor legibilidade */
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    transition: color 0.2s, transform 0.2s; /* Para o efeito de hover nos LIs */
+}
+
+/* Estilo da lista não ordenada (<ul>) */
+.guia-section ul {
+    margin-top: 16px;
+    padding-left: 20px;
+    list-style-type: '⚡ '; /* Adiciona um ícone customizado de raio como marcador da lista */
+}
+
+/* Efeito de hover nos itens da lista (<li>) */
+.guia-section li:hover {
+    color: #ffae5e; /* Muda a cor do texto para a cor de destaque */
+    transform: translateX(5px); /* Move o item ligeiramente para a direita */
+}
+
+/* Estilo para texto em negrito (<strong>) dentro das seções */
+.guia-section strong {
+    color: #aee2ff; /* Um azul claro para destaque */
+    font-weight: 600;
+}
+
+/* Animação para o botão "Voltar ao Menu" */
+.back-btn {
+    position: relative; /* Para o pseudo-elemento do brilho */
+    overflow: hidden;   /* Esconde o brilho até o hover */
+    z-index: 1;         /* Garante que o brilho esteja atrás do texto */
+}
+
+/* Pseudo-elemento que cria o efeito de brilho que varre o botão */
+.back-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Começa totalmente à esquerda, fora do botão */
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Um brilho branco suave e transparente */
+    transform: skewX(-30deg); /* Inclina o brilho para dar um efeito de varredura */
+    transition: left 0.5s ease-out; /* Anima o movimento do brilho */
+    z-index: -1;
+}
+
+/* Ativa a animação de brilho ao passar o mouse sobre o botão */
+.back-btn:hover::before {
+    left: 100%; /* Move o brilho para a direita, saindo do botão */
+}
+
+
+/* 4. Garante a responsividade em telas menores (celulares) */
+@media (max-width: 900px) {
+    .guia-columns {
+        flex-direction: column; /* As colunas ficam uma sobre a outra */
+    }
+
+    .container.guia-container {
+        padding: 24px 12px;
+        max-width: 95vw;
+    }
+}

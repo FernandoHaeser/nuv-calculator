@@ -1,0 +1,189 @@
+/* style.css */
+:root {
+    --bg-dark-blue: #0a0f18;
+    --bg-light-blue: #121828;
+    --container-bg: rgba(25, 30, 45, 0.75);
+    --accent-blue: #00aaff;
+    --accent-blue-hover: #33bbff;
+    --text-light: #e0e0e0;
+    --text-dark: #a0a0b0;
+    --border-color: rgba(0, 170, 255, 0.2);
+    --shadow-color: rgba(0, 170, 255, 0.15);
+    --error-color: #ff4f6d;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-light);
+    background-color: var(--bg-dark-blue);
+    background-image: radial-gradient(circle at 25% 25%, var(--bg-light-blue) 0%, var(--bg-dark-blue) 50%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+    color: var(--text-dark);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+#ip-input, #period-select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    color: var(--text-light);
+    background-color: var(--bg-light-blue);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+#ip-input:focus, #period-select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px var(--shadow-color);
+}
+
+#submit-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--accent-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#submit-btn:hover:not(:disabled) {
+    background-color: var(--accent-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
+}
+
+#submit-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#loading-container {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-dark);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#result-container {
+    margin-top: 2rem;
+    overflow-x: auto;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.results-table th, .results-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.results-table th {
+    background-color: var(--bg-light-blue);
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.results-table tr:last-child td {
+    border-bottom: none;
+}
+
+.results-table tr:hover {
+    background-color: rgba(0, 170, 255, 0.05);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-weight: 500;
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(255, 79, 109, 0.1);
+    border: 1px solid var(--error-color);
+    border-radius: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    body { padding: 1rem; }
+    .container { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+}

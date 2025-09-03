@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/autenticavel.css">
+    <script src="/js/security.js"></script>
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="login-form" class="login-form" autocomplete="off">
+            <input type="text" id="usuario" class="form-input" placeholder="Usuário" required>
+
+            <div id="login-hint" class="login-hint">
+                Se este for seu primeiro acesso, apenas informe o usuário e clique em "Entrar".
+            </div>
+
+            <input type="password" id="senha" class="form-input" placeholder="Senha">
+            <button type="submit" class="action-btn">Entrar</button>
+        </form>
+        <div id="message" class="message-area"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason');
+            const messageDiv = document.getElementById('message');
+
+            if (reason === 'session_expired') {
+                messageDiv.style.color = '#ffae5e';
+                messageDiv.textContent = 'Sua sessão expirou por inatividade.';
+            }
+
+            // Animação de entrada
+            document.body.classList.add('fade-in');
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = '';
+
+            try {
+                const response = await fetch('/auth/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario, senha })
+                });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    // Inicia a transição de saída e depois redireciona
+                    initiateTransition('/index.php');
+                } else if (result.status === 'set_password') {
+                    messageDiv.style.color = '#ffae5e';
+                    messageDiv.textContent = 'Primeiro acesso. Redirecionando para criar senha...';
+                    initiateTransition('/html/setPassword.html');
+                } else {
+                    messageDiv.style.color = '#ff4f6d';
+                    messageDiv.textContent = result.message;
+                }
+            } catch (error) {
+                messageDiv.style.color = '#ff4f6d';
+                messageDiv.textContent = 'Erro de conexão. Verifique o console.';
+                console.error('Erro no login:', error);
+            }
+        });
+
+        /**
+         * Função para iniciar a transição de saída e redirecionar.
+         * @param {string} targetUrl A URL para a qual o usuário será redirecionado.
+         */
+        function initiateTransition(targetUrl) {
+            document.body.classList.remove('fade-in');
+
+            // Ouve o evento de transição para saber quando a animação terminou
+            document.body.addEventListener('transitionend', () => {
+                window.location.href = targetUrl;
+            }, { once: true }); // O {once: true} garante que o listener seja removido após a primeira execução
+        }
+    </script>
+
+    <script>
+        const userInput = document.getElementById('usuario');
+        const loginHint = document.getElementById('login-hint');
+
+        userInput.addEventListener('focus', () => {
+            loginHint.classList.add('visible');
+        });
+
+        userInput.addEventListener('blur', () => {
+            loginHint.classList.remove('visible');
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('fade-in');
+        });
+        // A transição de saída não é necessária aqui, pois a navegação é feita pelo script do formulário.
+    </script>
+</body>
+
+</html>

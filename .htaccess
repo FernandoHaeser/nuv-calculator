@@ -1,0 +1,23 @@
+# Ativa o motor de reescrita de URL
+RewriteEngine On
+
+# ----------------------------------------------------------------------
+# REGRA 1: Redireciona o caminho antigo para o novo (Opcional, mas bom para SEO)
+# Se alguém acessar o caminho completo, será redirecionado para a URL limpa
+RewriteRule ^html/login\.html$ /login [R=301,L]
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# REGRA 2: Remove a extensão .html das URLs
+# Se o navegador pedir /login, o servidor vai procurar por /login.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# REGRA 3: Mapeia a URL limpa para o arquivo na pasta /html
+# Se o navegador pedir /login, o servidor vai entregar o arquivo /html/login.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^login/?$ /html/login.html [L]
+# ----------------------------------------------------------------------
