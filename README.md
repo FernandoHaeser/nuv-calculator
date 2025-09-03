@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
-<img src="https://img.shields.io/github/last-commit/FernandoHaeser/nuv-calculator-web" alt="last update" />
+<img src="https://img.shields.io/github/last-commit/FernandoHaeser/nuv-calculator" alt="last update" />
 ![Language](https://img.shields.io/badge/language-HTML%2FCSS%2FJS%2FPHP%2FJAVA-yellow)
 ![Issues](https://img.shields.io/github/issues/FernandoHaeser/nuv-calculator)
 ![Stars](https://img.shields.io/github/stars/FernandoHaeser/nuv-calculator?style=social)
